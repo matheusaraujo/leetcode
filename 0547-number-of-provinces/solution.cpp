@@ -13,10 +13,8 @@ public:
         int c = 0;
         auto v = vector<int>(N);
 
-        for(int i = 0; i < N; i++) {
-            if (v[i] == 0) cout << i << endl, dfs(a, v, i, ++c);
-        }
-
+        for(int i = 0; i < N; i++)
+            if (v[i] == 0) dfs(a, v, i, ++c);
         return c;
     }
 };
