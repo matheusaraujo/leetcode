@@ -4,22 +4,23 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def maxPathSum(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        
-        self.msum = float('-inf')
-        self.get_sum(root)
-        return self.msum
-    
-    def get_sum(self, node):
-        if not node:
-            return 0
-        
-        ls, rs = self.get_sum(node.left), self.get_sum(node.right)
-        max_single_path = max(node.val+max(ls,rs), node.val)
-        self.msum = max(self.msum, max_single_path , node.val+ls+rs)
-        return max_single_path
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        global ans
+        ans = root.val
+
+        def dfs(root: Optional[TreeNode]) -> int:
+            if not root: return 0
+
+            leftMax = max(0, dfs(root.left))
+            rightMax = max(0, dfs(root.right))
+
+            global ans
+            ans = max(ans, root.val + leftMax + rightMax)
+
+            return root.val + max(leftMax, rightMax)
+
+        dfs(root)
+
+        return ans
+
